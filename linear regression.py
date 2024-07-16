@@ -21,4 +21,17 @@ plt.plot(X, Y, 'o')
 plt.plot(X,m*X+b,'red')
 plt.xlabel('Money Supply %')
 plt.ylabel('Inflation %')
-plt.show()
+#plt.show()
+
+#Method 2, using OLS
+X = df.Money_Supply
+Y = df.Inflation
+corr = X.corr(Y) 
+print("Correlation is: "+ str(round(corr,3)))
+rsquared = corr*corr
+print("R-squared is: "+ str(round(rsquared,3)))
+
+X = sm.add_constant(X) # adding a constant
+
+model = sm.OLS(Y, X).fit()
+model.summary()
