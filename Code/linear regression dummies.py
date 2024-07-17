@@ -6,11 +6,37 @@ import statsmodels.api as sm
 from sklearn.linear_model import LinearRegression
     
 #Read from file Inflation.xlsx.  
-Path = "/Users/juergniederberger/GitHubSync/Py/"
-df = pd.read_excel(Path+'Inflation.xlsx',sheet_name ='Inflation')
+Path = "/Users/juergniederberger/GitHubSync/Py/Data"
+df = pd.read_excel(Path+'Helper_Data.xlsx',sheet_name ='Dummies')
 
 #The variable df is called  a dataframe. Check columns
-df
+#df.columns
+#df
+
+#Without dummy
+# X=df.Date
+# Y=df.Volatility
+# X = sm.add_constant(X)
+# olsresult = sm.OLS(Y, X).fit()
+# olsresult.summary()
+
+df=pd.get_dummies(df, prefix=['FDIDummy'], columns=['Reforms'],drop_first=True, dtype=int)
+df.columns
+
+#With dummies
+X=df[['FDIDummy_Pre-reforms']]
+Y=df.Volatility
+X = sm.add_constant(X)
+olsresult = sm.OLS(Y, X).fit()
+olsresult.summary()
+
+plt.scatter(df.Period,df.Volatility, marker='o',color="red")
+plt.xlabel("Year Month")
+plt.ylabel("Realized Volatility")
+plt.xticks(np.arange(0, len(df.Period)+1, 17))
+plt.show()
+
+
 #Assign X and Y from columns in the dataframe
 X=df.Money_Supply
 Y=df.Inflation

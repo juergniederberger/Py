@@ -6,7 +6,7 @@ from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 
 # Read the data from the Excel sheet
-Path = "/Users/juergniederberger/GitHubSync/Py/"
+Path = "/Users/juergniederberger/GitHubSync/Py/Data"
 data = pd.read_excel(Path+'For ANOVA.xlsx')
 #data = pd.read_excel('/path/to/your/excel_file.xlsx')
 
