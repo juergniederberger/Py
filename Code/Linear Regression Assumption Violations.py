@@ -1,3 +1,4 @@
+# Update to test sync
 import numpy as np
 import pandas as pd
 from sklearn.linear_model import LinearRegression
@@ -5,7 +6,8 @@ from sklearn.linear_model import LinearRegression
 # Load the Income_Data.xlsx file in a dataframe variable called dincome.
 # File name is: Income_Data.xlsx and sheet name is: Data
 
-path='/Users/juergniederberger/GitHubSync/Py/Data/'
+#path='/Users/juergniederberger/GitHubSync/Py/Data/'
+path='Py/Data/'
 dincome=pd.read_excel(path+'Income_Data.xlsx',sheet_name='Data')
 dincome
 
@@ -26,9 +28,10 @@ Regressor = LinearRegression()
 ## You have called the Regressor, now fit the model (or train it) using the Regressor function
 ## If in doubt, check illustrative code used in this lesson
 ## Syntax is Regressor.fit(Independent_Variable,Dependent_Variable)
-
+Regressor.fit(X,Y)
 # Type your code for fitting the model below this comment. Use the "Run" button on the tool bar above to run all the cell's code
 
 # Type your code for printing the coefficients below this comment.
-
+print("Coefficients: " + str(Regressor.coef_))
 # Type your code for printing the intercept below this comment.
+print("Intercept: " + str(Regressor.intercept_))
