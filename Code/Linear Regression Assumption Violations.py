@@ -2,12 +2,14 @@
 import numpy as np
 import pandas as pd
 from sklearn.linear_model import LinearRegression
+from mpl_toolkits.mplot3d import Axes3D
+import matplotlib.pyplot as plt
 
 # Load the Income_Data.xlsx file in a dataframe variable called dincome.
 # File name is: Income_Data.xlsx and sheet name is: Data
 
 #path='/Users/juergniederberger/GitHubSync/Py/Data/'
-path='Py/Data/'
+path='/workspaces/Py/Data/'
 dincome=pd.read_excel(path+'Income_Data.xlsx',sheet_name='Data')
 dincome
 
@@ -35,3 +37,24 @@ Regressor.fit(X,Y)
 print("Coefficients: " + str(Regressor.coef_))
 # Type your code for printing the intercept below this comment.
 print("Intercept: " + str(Regressor.intercept_))
+
+# Generate a grid of points for the surface plot
+x1_range = X['Education_Years'].min(), X['Education_Years'].max()
+x2_range = X['Age'].min(), X['Age'].max()
+x1_values = np.linspace(x1_range[0], x1_range[1], 100)
+x2_values = np.linspace(x2_range[0], x2_range[1], 100)
+X1, X2 = np.meshgrid(x1_values, x2_values)
+X_grid = np.column_stack((X1.ravel(), X2.ravel()))
+
+# Predict the dependent variable for the grid of points
+y_pred = Regressor.predict(X_grid)
+
+# Create a 3D plot of the surface
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+ax.scatter(X['Education_Years'], X['Age'], Y, c='r', marker='o')
+ax.plot_surface(X1, X2, y_pred.reshape(X1.shape), alpha=0.5)
+ax.set_xlabel('Education_Years')
+ax.set_ylabel('Age')
+ax.set_zlabel('Annual_Income')
+plt.show()
